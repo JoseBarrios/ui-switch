@@ -1,17 +1,17 @@
 <template id="ui-switch-view">
 
 	<style>
-		:host([hidden]) { display: none }
 
 		:host {
 			--ui-switch-background-color: #2196F3;
+			background-color:red;
 		}
 
 		.switch {
 			position: relative;
 			display: inline-block;
-			width: 88px;
-			height: 44px;
+			width: 40px;
+			height: 20px;
 		}
 
 		.switch input {
@@ -25,6 +25,8 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
+			height:34px;
+			width:66px;
 			background-color: #ccc;
 			-webkit-transition: .4s;
 			transition: .4s;
@@ -33,10 +35,10 @@
 		.slider:before {
 			position: absolute;
 			content: "";
-			height: 34px;
-			width: 34px;
-			left: 4px;
-			bottom: 4px;
+			height: 24px;
+			width: 24px;
+			left: 5px;
+			bottom: 5px;
 			background-color: white;
 			-webkit-transition: .4s;
 			transition: .4s;
@@ -47,18 +49,18 @@
 		}
 
 		input:focus + .slider {
-			box-shadow: 0 0 1px var(--ui-switch-background-color);
+			//box-shadow: 0 0 1px var(--ui-switch-background-color);
 		}
 
 		input:checked + .slider:before {
-			-webkit-transform: translateX(44px);
-			-ms-transform: translateX(44px);
-			transform: translateX(44px);
+			-webkit-transform: translateX(34px);
+			-ms-transform: translateX(34px);
+			transform: translateX(34px);
 		}
 
 		/* Rounded sliders */
 		.slider.round {
-			border-radius: 44px;
+			border-radius: 34px;
 		}
 
 		.slider.round:before {

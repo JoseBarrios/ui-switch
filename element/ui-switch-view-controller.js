@@ -33,14 +33,14 @@ class SwitchViewController extends HTMLElement {
 	connectedCallback() {
 
 		//Set ARIA role, if necesary
-		if(!this.hasAttribute('role')){
-			this.setAttribute('role', 'checkbox');
-		}
-
-/*  //Set elements tabindex*/
-		//if (!this.hasAttribute('tabindex')){
-			//this.setAttribute('tabindex', 0);
+/*  if(!this.hasAttribute('role')){*/
+			//this.setAttribute('role', 'checkbox');
 		//}
+
+		//Set elements tabindex
+		if (!this.hasAttribute('tabindex')){
+			this.setAttribute('tabindex', 0);
+		}
 
 		//Wire views here
 		this.$slider = this.shadowRoot.querySelector('#slider');
@@ -72,7 +72,7 @@ class SwitchViewController extends HTMLElement {
 
 		switch(attrName){
 			case 'checked':
-				this.setAttribute('aria-checked', hasValue);
+				//this.setAttribute('aria-checked', hasValue);
 				break;
 
 			default:
