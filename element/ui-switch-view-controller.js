@@ -37,10 +37,10 @@ class SwitchViewController extends HTMLElement {
 			this.setAttribute('role', 'checkbox');
 		}
 
-		//Set elements tabindex
-		if (!this.hasAttribute('tabindex')){
-			this.setAttribute('tabindex', 0);
-		}
+/*  //Set elements tabindex*/
+		//if (!this.hasAttribute('tabindex')){
+			//this.setAttribute('tabindex', 0);
+		//}
 
 		//Wire views here
 		this.$slider = this.shadowRoot.querySelector('#slider');
