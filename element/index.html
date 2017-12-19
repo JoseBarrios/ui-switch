@@ -4,7 +4,6 @@
 
 		:host {
 			--ui-switch-background-color: #2196F3;
-			background-color:red;
 		}
 
 		.onoffswitch {
@@ -31,10 +30,10 @@
 			transition: all 0.3s ease-in 0s;
 		}
 		.onoffswitch-checkbox:checked + .onoffswitch-label {
-			background-color: #49E845;
+			background-color: var(--ui-switch-background-color);
 		}
 		.onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
-			border-color: #49E845;
+			border-color: var(--ui-switch-background-color);
 		}
 		.onoffswitch-checkbox:checked + .onoffswitch-label:before {
 			right: 0px;
