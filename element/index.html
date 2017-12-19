@@ -1,21 +1,77 @@
 <template id="ui-switch-view">
 
-  <style>
+	<style>
+
 		:host([hidden]) { display: none }
+
 		:host {
-			--ui-switch-background-color: #fc8325;
+			--ui-switch-background-color: #2196F3;
 		}
 
-		.container {
-			background-color:var(--ui-switch-background-color);
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 88px;
+			height: 44px;
+		}
+
+		.switch input {
+			display:none;
+		}
+
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		.slider:before {
+			position: absolute;
+			content: "";
+			height: 34px;
+			width: 34px;
+			left: 5px;
+			bottom: 5px;
+			background-color: white;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		input:checked + .slider {
+			background-color: var(--ui-switch-background-color);
+		}
+
+		input:focus + .slider {
+			box-shadow: 0 0 1px var(--ui-switch-background-color);
+		}
+
+		input:checked + .slider:before {
+			-webkit-transform: translateX(44px);
+			-ms-transform: translateX(44px);
+			transform: translateX(44px);
+		}
+
+		/* Rounded sliders */
+		.slider.round {
+			border-radius: 44px;
+		}
+
+		.slider.round:before {
+			border-radius: 50%;
 		}
 
 	</style>
 
-	<div class="container">
-		<h1 id="header"> HEADER </h1>
-		<p id="text"> Text </p>
-	</div>
+		<label id="switch" class="switch">
+			<input id="checkbox" type="checkbox" checked>
+			<span id="slider" class="slider"></span>
+		</label>
 
 </template>
 

@@ -5,12 +5,12 @@ const uiSwitch = uiSwitchDoc.ownerDocument.querySelector('#ui-switch-view');
 
 class SwitchViewController extends HTMLElement {
 
-  static get observedAttributes(){
-    return ['value'];
-  }
+	static get observedAttributes(){
+		return ['checked'];
+	}
 
-  constructor(model){
-    super();
+	constructor(model){
+		super();
 		this.state = {};
 		this.state.connected = false;
 		//Keeps reference of events with bindings (so we can remove them)
@@ -18,10 +18,10 @@ class SwitchViewController extends HTMLElement {
 		this.event = {};
 		this.model = model || {};
 
-    const view = document.importNode(uiSwitch.content, true);
-    this.shadowRoot = this.attachShadow({mode: 'open'});
-    this.shadowRoot.appendChild(view);
-  }
+		const view = document.importNode(uiSwitch.content, true);
+		this.shadowRoot = this.attachShadow({mode: 'open'});
+		this.shadowRoot.appendChild(view);
+	}
 
 	//Fires when the element is inserted into the DOM. It's a good place to set
 	//the initial role, tabindex, internal state, and install event listeners.
@@ -43,16 +43,24 @@ class SwitchViewController extends HTMLElement {
 		}
 
 		//Wire views here
-    this.$container = this.shadowRoot.querySelector('.container');
-    this.$header = this.shadowRoot.querySelector('#header');
-    this.$text = this.shadowRoot.querySelector('#text');
+		this.$slider = this.shadowRoot.querySelector('#slider');
+		this.$checkbox = this.shadowRoot.querySelector('#checkbox');
+
+		this._upgradeProperty('checked');
+		this._upgradeProperty('disabled');
 
 		//Reference events with bindings
 		this.event.click = this._onClick.bind(this);
-    this.$container.addEventListener('click', this.event.click);
-
+		this.$slider.addEventListener('click', this.event.click);
 		this.state.connected = true;
-    this._updateView();
+
+	}
+	_upgradeProperty(prop) {
+		if (this.hasOwnProperty(prop)) {
+			let value = this[prop];
+			delete this[prop];
+			this[prop] = value;
+		}
 	}
 
 	adoptedCallback(){
@@ -60,75 +68,46 @@ class SwitchViewController extends HTMLElement {
 	}
 
 	attributeChangedCallback(attrName, oldVal, newVal) {
-		switch(attrName){
+		const hasValue = newVal !== null;
 
-			case 'value':
-				if(newVal !== this.value){ this.value = newVal; }
+		switch(attrName){
+			case 'checked':
+				this.setAttribute('aria-checked', hasValue);
 				break;
 
 			default:
 				console.warn(`Attribute ${attrName} is not handled, you should probably do that`);
 		}
-  }
+	}
 
-  get shadowRoot(){return this._shadowRoot;}
-  set shadowRoot(value){ this._shadowRoot = value}
+	get shadowRoot(){return this._shadowRoot;}
+	set shadowRoot(value){ this._shadowRoot = value}
 
-
-	get value(){ return this.model.value; }
-	set value(value){
-		//Check if attribute matches property value, Sync the property with the
-		//attribute if they do not, skip this step if already sync
-		if(this.getAttribute('value') !== value){
-			//By setting the attribute, the attributeChangedCallback() function is
-			//called, which inturn calls this setter again.
-			this.setAttribute('value', value);
-			//attributeChangeCallback() implicitly called
-			return;
+	get checked(){ return this.hasAttribute('checked'); }
+	set checked(value){
+		const isChecked = Boolean(value);
+		if (isChecked){
+			this.setAttribute('checked', '');
+		} else {
+			this.removeAttribute('checked');
 		}
-
-		this.model.value = value;
-		this._updateView(this.$header);
 	}
 
-	_onClick(e){
-		this.dispatchEvent(new CustomEvent('custom-click', {detail: this.model}));
+	_onClick(event) {
+		this._toggleChecked();
 	}
 
-  _updateView(view) {
-		//No point in rendering if there isn't a model source, or a view on screen
-		if(!this.model || !this.state.connected){ return; }
-
-		switch(view){
-			case this.$header:
-				this._updateHeaderView();
-				break;
-
-			case this.$text:
-				this._updateTextView();
-				break;
-
-			default:
-				this._updateHeaderView();
-				this._updateTextView();
-		}
-  }
-
-	_updateHeaderView(){
-		this.$header.innerHTML = this.model.value;
-	}
-
-	_updateTextView(){
-		this.$text.innerHTML = this.model.value;
+	_toggleChecked() {
+		this.checked = !this.checked;
+		this.dispatchEvent(new CustomEvent('update', {detail: this.checked}));
 	}
 
 	disconnectedCallback() {
-		this._removeEvents()
+		this.$slider.removeEventListener('click', this.event.click);
 		this.state.connected = false;
 	}
 
 	_removeEvents(){
-    this.$container.removeEventListener('click', this.event.click);
 	}
 
 }
