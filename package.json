@@ -1,6 +1,6 @@
 {
   "name": "ui-switch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A custom element template",
   "main": "index.js",
   "scripts": {
