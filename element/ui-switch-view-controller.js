@@ -95,6 +95,8 @@ class SwitchViewController extends HTMLElement {
 
 	_onClick(event) {
 		this._toggleChecked();
+		this.$checkbox.checked = this.checked;
+		event.preventDefault();
 	}
 
 	_toggleChecked() {
