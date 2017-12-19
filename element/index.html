@@ -1,7 +1,6 @@
 <template id="ui-switch-view">
 
 	<style>
-
 		:host([hidden]) { display: none }
 
 		:host {
@@ -11,7 +10,7 @@
 		.switch {
 			position: relative;
 			display: inline-block;
-			width: 66px;
+			width: 88px;
 			height: 44px;
 		}
 
@@ -22,10 +21,10 @@
 		.slider {
 			position: absolute;
 			cursor: pointer;
-			top: 10;
-			left: 10;
-			right: 10;
-			bottom: 10;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
 			background-color: #ccc;
 			-webkit-transition: .4s;
 			transition: .4s;
@@ -34,10 +33,10 @@
 		.slider:before {
 			position: absolute;
 			content: "";
-			height: 20px;
-			width: 20px;
-			left: 2px;
-			bottom: 2px;
+			height: 34px;
+			width: 34px;
+			left: 4px;
+			bottom: 4px;
 			background-color: white;
 			-webkit-transition: .4s;
 			transition: .4s;
@@ -52,9 +51,9 @@
 		}
 
 		input:checked + .slider:before {
-			-webkit-transform: translateX(22px);
-			-ms-transform: translateX(22px);
-			transform: translateX(22px);
+			-webkit-transform: translateX(44px);
+			-ms-transform: translateX(44px);
+			transform: translateX(44px);
 		}
 
 		/* Rounded sliders */
@@ -72,12 +71,6 @@
 			<input id="checkbox" type="checkbox" checked>
 			<span id="slider" class="slider"></span>
 		</label>
-
-		<!--<label id="switch" class="switch">-->
-			<!--<input id="checkbox" type="checkbox" checked>-->
-			<!--<span id="slider" class="slider round"></span>-->
-		<!--</label>-->
-
 
 </template>
 
