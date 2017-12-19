@@ -1,0 +1,21 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.17/webcomponents-loader.js'></script>
+<link rel='import' href='../element/index.html'>
+<meta name=viewport content="width=device-width, initial-scale=1">
+
+<style>
+	ui-switch {
+		--ui-switch-background-color: #b2dfbd;
+	}
+</style>
+
+
+<body style="background-color:lightGray;padding:0px;margin:0px;">
+		<ui-switch value="dynamically loaded"></ui-switch>
+</body>
+
+<script>
+	window.addEventListener('WebComponentsReady', function(e) {
+  	// imports are loaded and elements have been registered
+		console.log(e)
+	});
+</script>

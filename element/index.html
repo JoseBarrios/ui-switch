@@ -1,0 +1,23 @@
+<template id="ui-switch-view">
+
+  <style>
+		:host([hidden]) { display: none }
+		:host {
+			--ui-switch-background-color: #fc8325;
+		}
+
+		.container {
+			background-color:var(--ui-switch-background-color);
+		}
+
+	</style>
+
+	<div class="container">
+		<h1 id="header"> HEADER </h1>
+		<p id="text"> Text </p>
+	</div>
+
+</template>
+
+<script type="text/javascript" src="ui-switch-data-controller.js"> </script>
+<script type="text/javascript" src="ui-switch-view-controller.js"> </script>
