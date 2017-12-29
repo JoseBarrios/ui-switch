@@ -6,7 +6,7 @@ const uiSwitch = uiSwitchDoc.ownerDocument.querySelector('#ui-switch-view');
 class SwitchViewController extends HTMLElement {
 
 	static get observedAttributes(){
-		return ['checked'];
+		return ['value', 'name'];
 	}
 
 	constructor(model){
@@ -46,21 +46,11 @@ class SwitchViewController extends HTMLElement {
 		this.$slider = this.shadowRoot.querySelector('#slider');
 		this.$checkbox = this.shadowRoot.querySelector('#checkbox');
 
-		this._upgradeProperty('checked');
-		this._upgradeProperty('disabled');
-
 		//Reference events with bindings
 		this.event.click = this._onClick.bind(this);
 		this.$slider.addEventListener('click', this.event.click);
 		this.state.connected = true;
-
-	}
-	_upgradeProperty(prop) {
-		if (this.hasOwnProperty(prop)) {
-			let value = this[prop];
-			delete this[prop];
-			this[prop] = value;
-		}
+		this._updateView();
 	}
 
 	adoptedCallback(){
@@ -71,8 +61,13 @@ class SwitchViewController extends HTMLElement {
 		const hasValue = newVal !== null;
 
 		switch(attrName){
-			case 'checked':
-				//this.setAttribute('aria-checked', hasValue);
+
+			case 'value':
+				this.value = newVal === 'true';
+				break;
+
+			case 'name':
+				this.name = newVal;
 				break;
 
 			default:
@@ -83,35 +78,33 @@ class SwitchViewController extends HTMLElement {
 	get shadowRoot(){return this._shadowRoot;}
 	set shadowRoot(value){ this._shadowRoot = value}
 
-	get checked(){ return this.hasAttribute('checked'); }
-	set checked(value){
-		const isChecked = Boolean(value);
-		if (isChecked){
-			this.setAttribute('checked', '');
-		} else {
-			this.removeAttribute('checked');
+	get value(){ return this.model.value || false; }
+	set value(value){
+		this.model.value = value;
+		this._updateView();
+	}
+
+	get name(){ return this.model.name; }
+	set name(value){
+		this.model.name = value;
+	}
+
+	_updateView(){
+		if(this.$checkbox){
+			this.$checkbox.checked = this.value;
 		}
 	}
 
 	_onClick(event) {
-		this._toggleChecked();
-		this.$checkbox.checked = this.checked;
+		this.value = !this.value;
+		this.dispatchEvent(new CustomEvent('update', {detail: this.value}));
 		event.preventDefault();
-	}
-
-	_toggleChecked() {
-		this.checked = !this.checked;
-		this.dispatchEvent(new CustomEvent('update', {detail: this.checked}));
 	}
 
 	disconnectedCallback() {
 		this.$slider.removeEventListener('click', this.event.click);
 		this.state.connected = false;
 	}
-
-	_removeEvents(){
-	}
-
 }
 
 window.customElements.define('ui-switch', SwitchViewController);
