@@ -1,4 +1,5 @@
-<template id="ui-switch-view">
+const view = document.createElement("template");
+view.innerHTML = `
 
 	<style>
 
@@ -45,12 +46,8 @@
 		<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="checkbox" >
 		<label class="onoffswitch-label" for="checkbox"></label>
 	</div>
-	<!--<label id="switch" class="switch">-->
-		<!--<input id="checkbox" type="checkbox" checked>-->
-		<!--<span id="slider" class="slider"></span>-->
-	<!--</label>-->
 
-</template>
+`;
 
-<script type="text/javascript" src="ui-switch-data-controller.js"> </script>
-<script type="text/javascript" src="ui-switch-view-controller.js"> </script>
+export default view;
+

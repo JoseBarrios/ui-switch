@@ -1,7 +1,6 @@
 'use strict'
 
-const uiSwitchDoc = document._currentScript || document.currentScript;
-const uiSwitch = uiSwitchDoc.ownerDocument.querySelector('#ui-switch-view');
+import view from "./view.js";
 
 class SwitchViewController extends HTMLElement {
 
@@ -18,9 +17,8 @@ class SwitchViewController extends HTMLElement {
 		this.event = {};
 		this.model = model || {};
 
-		const view = document.importNode(uiSwitch.content, true);
 		this.shadowRoot = this.attachShadow({mode: 'open'});
-		this.shadowRoot.appendChild(view);
+		this.shadowRoot.appendChild(view.content.cloneNode(true));
 	}
 
 	//Fires when the element is inserted into the DOM. It's a good place to set
