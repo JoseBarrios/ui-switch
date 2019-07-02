@@ -19,14 +19,9 @@
 
 <script>
 
-	window.addEventListener('WebComponentsReady', ready);
-
-	//Hoisted
-	function ready(){
-		const elem = document.querySelector('ui-switch');
-		elem.addEventListener('update', click => {
-			console.log('click', click.detail)
-		});
-	}
+    const elem = document.querySelector('ui-switch');
+    elem.addEventListener('update', click => {
+        console.log('click', click.detail)
+    });
 
 </script>
