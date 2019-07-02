@@ -19,7 +19,7 @@ view.innerHTML = `
 			height: 36px; padding: 0; line-height: 36px;
 			border: 2px solid #E3E3E3; border-radius: 36px;
 			background-color: #FFFFFF;
-			transition: background-color 0.1s ease-in;
+			transition: background-color 0.2s ease-in;
 		}
 		.onoffswitch-label:before {
 			content: "";
@@ -28,7 +28,7 @@ view.innerHTML = `
 			position: absolute; top: 0; bottom: 0;
 			right: 22px;
 			border: 2px solid #E3E3E3; border-radius: 36px;
-			transition: all 0.1s ease-in 0s;
+			transition: all 0.2s ease-in 0s;
 		}
 		.onoffswitch-checkbox:checked + .onoffswitch-label {
 			background-color: var(--ui-switch-background-color);
